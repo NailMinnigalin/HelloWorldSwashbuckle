@@ -1,7 +1,9 @@
+using Core;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HelloWorldSwashbuckle.Controllers
 {
+	[SwaggerGroup("core")]
 	[ApiController]
 	[Route("[controller]/[action]")]
 	public class WeatherForecastController : ControllerBase
