@@ -1,0 +1,6 @@
+@HelloWorldSwashbuckle_HostAddress = http://localhost:5023
+
+GET {{HelloWorldSwashbuckle_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
