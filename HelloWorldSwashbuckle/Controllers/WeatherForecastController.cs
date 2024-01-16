@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HelloWorldSwashbuckle.Controllers
 {
+	[AllowAnonymous]
 	[ApiController]
 	[Route("[controller]/[action]")]
 	public class WeatherForecastController : ControllerBase
