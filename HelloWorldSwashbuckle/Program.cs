@@ -8,13 +8,7 @@ builder.Services.AddControllers().AddApplicationPart(typeof(ProductsModule.Produ
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 List<string> groups = new();
-builder.Services.AddSwaggerGen(c =>
-{
-	c.SwaggerDoc("v1", new OpenApiInfo
-	{
-		Title = "Test title"
-	});
-});
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
