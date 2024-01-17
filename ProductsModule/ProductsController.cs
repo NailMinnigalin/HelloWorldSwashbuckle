@@ -1,26 +1,14 @@
 ﻿using Core;
 using Microsoft.AspNetCore.Authorization;
-using Core;
 using Microsoft.AspNetCore.Mvc;
 
-/// <summary>
-/// A custom request class.
-/// </summary>
 public class CustomRequest
 {
-	/// <summary>
-	/// The ID of the user.
-	/// </summary>
 	/// <example>123</example>
 	public int UserId { get; set; }
 
-	/// <summary>
-	/// The name of the user.
-	/// </summary>
 	/// <example>John Doe</example>
 	public string UserName { get; set; }
-
-	// Add other properties with examples as needed
 }
 
 namespace ProductsModule

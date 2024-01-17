@@ -1,7 +1,4 @@
-using System.Reflection;
-
 using Core;
-using HelloWorldSwashbuckle;
 using HelloWorldSwashbuckle;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -9,17 +6,19 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 
 builder.Services.AddControllers().AddApplicationPart(typeof(ProductsModule.ProductsController).Assembly);
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 List<string> groups = new();
 builder.Services.AddSwaggerGen(c =>
 {
+	// Создание документов под проекты
 	c.SwaggerDoc("core", new OpenApiInfo { Title = "Core API", Version = "v1" });
 	c.SwaggerDoc("products", new OpenApiInfo { Title = "Products API", Version = "v1" });
 
+	//Создание предиката который определяет какой метод идет в какой документ
 	c.DocInclusionPredicate((docName, apiDesc) =>
 	{
 		if (!apiDesc.TryGetMethodInfo(out MethodInfo methodInfo))
@@ -36,6 +35,7 @@ builder.Services.AddSwaggerGen(c =>
 		return groupAttr.GroupName == docName;
 	});
 
+	//Определение параметров авторизации
 	c.AddSecurityDefinition("basic", new OpenApiSecurityScheme
 	{
 		Name = "Authorization",
@@ -60,6 +60,7 @@ builder.Services.AddSwaggerGen(c =>
 		}
 	});
 
+	//Добавление XML комментариев в swagger
 	var executingAssembly = Assembly.GetExecutingAssembly();
 	var currentDirectory = AppContext.BaseDirectory;
 
@@ -82,6 +83,7 @@ builder.Services.AddSwaggerGen(c =>
 		}
 	}
 
+	//Добавление фильтра операций который добавляет им тэги
 	c.OperationFilter<SwaggerTagOperationFilter>();
 });
 
