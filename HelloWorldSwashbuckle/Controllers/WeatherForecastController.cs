@@ -1,7 +1,9 @@
+using Core;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HelloWorldSwashbuckle.Controllers
 {
+	[SwaggerTag("WeatherForecastController")]
 	[ApiController]
 	[Route("[controller]/[action]")]
 	public class WeatherForecastController : ControllerBase
@@ -18,6 +20,7 @@ namespace HelloWorldSwashbuckle.Controllers
 			_logger = logger;
 		}
 
+		[SwaggerTag("SomeAnotherTag")]
 		[HttpGet(Name = "GetWeatherForecast")]
 		public IEnumerable<WeatherForecast> Get()
 		{

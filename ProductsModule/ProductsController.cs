@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Core;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ProductsModule
 {
+	[SwaggerTag("ProductsController")]
 	[ApiController]
 	[Route("[controller]/[action]")]
 	public class ProductsController : ControllerBase
