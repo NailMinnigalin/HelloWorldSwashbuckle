@@ -1,4 +1,7 @@
+using Core;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +11,27 @@ builder.Services.AddControllers().AddApplicationPart(typeof(ProductsModule.Produ
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 List<string> groups = new();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+	c.SwaggerDoc("core", new OpenApiInfo { Title = "Core API", Version = "v1" });
+	c.SwaggerDoc("products", new OpenApiInfo { Title = "Products API", Version = "v1" });
+
+	c.DocInclusionPredicate((docName, apiDesc) =>
+	{
+		if (!apiDesc.TryGetMethodInfo(out MethodInfo methodInfo))
+		{
+			return false;
+		}
+
+		var groupAttr = methodInfo.DeclaringType.GetCustomAttribute<SwaggerGroupAttribute>();
+		if (groupAttr == null)
+		{
+			return false;
+		}
+
+		return groupAttr.GroupName == docName;
+	});
+});
 
 var app = builder.Build();
 
@@ -18,7 +41,8 @@ if (app.Environment.IsDevelopment())
 	app.UseSwagger();
 	app.UseSwaggerUI( c =>
 	{
-		c.SwaggerEndpoint("/swagger/v1/swagger.json", "Hello World API V1");
+		c.SwaggerEndpoint("/swagger/core/swagger.json", "Core API");
+		c.SwaggerEndpoint("/swagger/products/swagger.json", "Products API");
 	});
 }
 
