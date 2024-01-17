@@ -2,6 +2,7 @@ using System.Reflection;
 
 using Core;
 using HelloWorldSwashbuckle;
+using HelloWorldSwashbuckle;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
@@ -80,6 +81,8 @@ builder.Services.AddSwaggerGen(c =>
 			c.IncludeXmlComments(xmlPath);
 		}
 	}
+
+	c.OperationFilter<SwaggerTagOperationFilter>();
 });
 
 var app = builder.Build();

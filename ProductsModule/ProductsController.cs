@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Core;
+using Microsoft.AspNetCore.Authorization;
 using Core;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,7 @@ public class CustomRequest
 
 namespace ProductsModule
 {
+	[SwaggerTag("ProductsController")]
 	[SwaggerGroup("products")]
 	[Authorize]
 	[ApiController]

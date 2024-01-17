@@ -1,9 +1,11 @@
+using Core;
 using Microsoft.AspNetCore.Authorization;
 using Core;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HelloWorldSwashbuckle.Controllers
 {
+	[SwaggerTag("WeatherForecastController")]
 	[AllowAnonymous]
 	[SwaggerGroup("core")]
 	[ApiController]
@@ -22,6 +24,7 @@ namespace HelloWorldSwashbuckle.Controllers
 			_logger = logger;
 		}
 
+		[SwaggerTag("SomeAnotherTag")]
 		[HttpGet(Name = "GetWeatherForecast")]
 		public IEnumerable<WeatherForecast> Get()
 		{
