@@ -1,4 +1,5 @@
 using Core;
+using HelloWorldSwashbuckle;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
@@ -31,6 +32,30 @@ builder.Services.AddSwaggerGen(c =>
 
 		return groupAttr.GroupName == docName;
 	});
+
+	c.AddSecurityDefinition("basic", new OpenApiSecurityScheme
+	{
+		Name = "Authorization",
+		Type = SecuritySchemeType.Http,
+		Scheme = "basic",
+		In = ParameterLocation.Header,
+		Description = "Basic Authorization header using the Bearer scheme."
+	});
+
+	c.AddSecurityRequirement(new OpenApiSecurityRequirement
+	{
+		{
+			new OpenApiSecurityScheme
+			{
+				Reference = new OpenApiReference
+				{
+					Type = ReferenceType.SecurityScheme,
+					Id = "basic"
+				}
+			},
+			new string[] {}
+		}
+	});
 });
 
 var app = builder.Build();
@@ -47,9 +72,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseMiddleware<BasicAuthMiddleware>();
+app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
 
 app.Run();

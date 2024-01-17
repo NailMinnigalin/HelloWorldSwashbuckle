@@ -1,9 +1,11 @@
-﻿using Core;
+﻿using Microsoft.AspNetCore.Authorization;
+using Core;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ProductsModule
 {
 	[SwaggerGroup("products")]
+	[Authorize]
 	[ApiController]
 	[Route("[controller]/[action]")]
 	public class ProductsController : ControllerBase

@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Core;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HelloWorldSwashbuckle.Controllers
 {
+	[AllowAnonymous]
 	[SwaggerGroup("core")]
 	[ApiController]
 	[Route("[controller]/[action]")]
